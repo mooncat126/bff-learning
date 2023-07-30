@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { FC, useEffect, useState } from 'react';
+import Layout from '../src/app/layout';
 
 interface User {
   id: number;
@@ -32,16 +33,20 @@ const Users: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ use
   };
   
   return (
-    <div>
-      <h1>Users:</h1>
+    <Layout>
+    <div className="container">
+      <h1 className="mt-3 mb-3">Users:</h1>
       {users.map((user) => (
-        <div key={user.id}>
-          <p>{user.name}</p>
-          <button onClick={() => deleteUser(user.id)}>Delete User</button>
+        <div key={user.id} className="card mb-3">
+          <div className="card-body">
+            <p className="card-text">{user.name}</p>
+            <button onClick={() => deleteUser(user.id)} className="btn btn-danger">Delete User</button>
+          </div>
         </div>
       ))}
-      <button onClick={resetUsers}>Reset</button>
+      <button onClick={resetUsers} className="btn btn-primary">Reset</button>
     </div>
+    </Layout>
   );
 };
 
