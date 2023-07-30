@@ -25,6 +25,12 @@ const Users: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ use
     setUsers(updatedUsers.data);
   };
 
+  const resetUsers = async () => {
+    await axios.post('http://localhost:3001/users/reset');
+    const updatedUsers = await axios.get<User[]>('http://localhost:3001/users');
+    setUsers(updatedUsers.data);
+  };
+  
   return (
     <div>
       <h1>Users:</h1>
@@ -34,6 +40,7 @@ const Users: FC<InferGetServerSidePropsType<typeof getServerSideProps>> = ({ use
           <button onClick={() => deleteUser(user.id)}>Delete User</button>
         </div>
       ))}
+      <button onClick={resetUsers}>Reset</button>
     </div>
   );
 };
